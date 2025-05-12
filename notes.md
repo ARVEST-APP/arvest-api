@@ -1,0 +1,1 @@
+- `get_projects()` will currently only get projects where the creator is the user.

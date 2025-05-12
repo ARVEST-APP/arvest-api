@@ -1,0 +1,14 @@
+venv
+build
+arvestapi.egg-info
+.DC_Store
+examples/login
+examples/media
+examples/tests
+examples/__pycache__
+debug
+coeso-reupload
+examples/fun
+.DS_Store
+filebrowser-reupload
+fsa-reupload
