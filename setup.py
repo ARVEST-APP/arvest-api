@@ -17,7 +17,7 @@ setup(
     long_description=long_description,
     author="Jacob Hart",
     author_email="jacob.dchart@gmail.com",
-    url="https://github.com/arvest-data-in-context/arvest-api",
+    url="https://github.com/ARVEST-APP/arvest-api",
     install_requires=required,
     packages=find_packages()
 )
