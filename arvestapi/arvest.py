@@ -88,7 +88,7 @@ class Arvest:
             if response.status_code == 200:
                 ret = []
                 for item in response.json():
-                    ret.append(Project(response_body = item, debug = self.debug, _arvest_instance = self))
+                    ret.append(Project(response_body = item, debug = self.debug, arvest_instance = self))
                 return ret
             else:
                 print("Unable to get projects.")
@@ -168,7 +168,7 @@ class Arvest:
             response = requests.post(url, json = body, headers = self._auth_header)
             
             if response.status_code == 201:
-                return Project(response_body = response.json(), debug = self.debug, _arvest_instance = self)
+                return Project(response_body = response.json(), debug = self.debug, arvest_instance = self)
             else:
                 print("Unable to create project.")
                 return None
