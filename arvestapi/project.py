@@ -48,3 +48,37 @@ class Project:
         else:
             print("Unable to delete manifest.")
             return None
+        
+    def get_metadata(self):
+        """Return the project's metadata."""
+
+        url = f"{self._arvest_instance._arvest_prefix}/metadata/project/{self.id}"
+        response = requests.get(url, headers = self._arvest_instance._auth_header)
+
+        if response.status_code == 200:
+            if len(response.json()) > 0:
+                return response.json()[0]["metadata"]
+            else:
+                return self._arvest_instance.get_metadata_formats()[0].to_setter_dict()["metadata"]
+            
+            #return Profile(response_body = response.json(), debug = self.debug)
+        else:
+            print("Unable to get project metadata.")
+            return None
+        
+    def update_metadata(self, fields : dict = {}, **kwargs):
+        """Update the project's metadata."""
+
+        metadata_format = kwargs.get("metadata_format", self._arvest_instance.get_metadata_formats()[0])
+        setter_dict = metadata_format.to_setter_dict(fields)
+        setter_dict["objectId"] = self.id
+        setter_dict["objectTypes"] = "project"
+
+        url = f"{self._arvest_instance._arvest_prefix}/metadata"
+        response = requests.post(url, json = setter_dict, headers = self._arvest_instance._auth_header)
+        
+        if response.status_code == 201:
+            pass
+        else:
+            print("Unable to update metadata.")
+            return None
