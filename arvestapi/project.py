@@ -18,6 +18,7 @@ class Project:
         self.snapshot_hash = kwargs.get("snapshot_hash", None)
         self.locked_by_user_id = kwargs.get("locked_by_user_id", None)
         self.locked_at = kwargs.get("locked_at", None)
+        self._arvest_instance = kwargs.get("arvest_instance", None)
 
         if "response_body" in kwargs:
             self._parse_response_body(kwargs.get("response_body"))
