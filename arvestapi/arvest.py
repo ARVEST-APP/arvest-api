@@ -232,6 +232,7 @@ class Arvest:
         
         ## kwargs
         - path (str) : url or path on local machine to media.
+        - update_id (bool) : default False, set to True to update all ids.
         """
 
         if self._personal_group != None:

@@ -78,8 +78,13 @@ class Manifest:
             print(f"Unable to retrieve Manifest content at url \"{self.get_full_url()}\".")
             return None
         
-    def update_content(self, content : dict) -> None:
-        """Update the a created or uploaded Manifest's content."""
+    def update_content(self, content : dict, **kwargs) -> None:
+        """
+        Update the a created or uploaded Manifest's content.
+        
+        kwargs
+        - update_id (bool) : default False, set to True to update all ids.
+        """
 
         if self.origin == "upload" or self.origin == "create":
             if self._arvest_instance != None:
@@ -96,7 +101,11 @@ class Manifest:
                 response = requests.patch(url, headers = self._arvest_instance._auth_header, json = payload)
 
                 if response.status_code == 200:
-                    pass
+                    if kwargs.get("update_id", False):
+                        self.update_id(self.get_full_url())
+                        return self
+                    else:
+                        return self
                 else:
                     print(f"Status code: {response.status_code}. Response: {response.json()}")
                     print("Unable to update json data.")
