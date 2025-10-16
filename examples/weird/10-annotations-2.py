@@ -25,7 +25,7 @@ projects = ar.get_projects()
 for project in projects:
     if project.title == PROJECT_NAME:
 
-        annotation_list = project.get_annotations()
+        annotation_list = project.user_workspace.get_annotations()
         for an in annotation_list:
             if an.annotation_type == "server":
                 annos.append([
@@ -35,6 +35,16 @@ for project in projects:
                     an.creation_date,
                     parse_svg_string(an.target["selector"][0]["value"]),
                     an.target["selector"][1]["value"]
+                ])
+        for an in annotation_list:
+            if an.annotation_type == "manifest":
+                annos.append([
+                    'm', 
+                    an.body["value"], 
+                    "-",
+                    "-",
+                    "-",
+                    an.target
                 ])
 
 write_csv(OUTPUT_DEST, annos)

@@ -1,6 +1,9 @@
 from .utils import debug_print_response_body
-from .user_workspace import UserWorkspace
+from .user_workspace import UserWorkspace, Annotation
 import requests
+from typing import List
+import os
+import urllib.parse
 
 class Project:
     def __init__(self, **kwargs) -> None:
@@ -83,3 +86,29 @@ class Project:
         else:
             print("Unable to update metadata.")
             return None
+        
+    def get_annotations(self) -> List[Annotation]:
+        """Return a list of all Annotations for all canvases for all of the manifests in the projects catalog."""
+
+        manifest_list = []
+        for item in self.user_workspace.catalog:
+            manifest_list.append(item["manifestId"])
+
+        canvas_list = []
+        for manifest_id in manifest_list:
+            man = self.user_workspace.manifests[manifest_id]["json"]
+            for item in man["items"]:
+                canvas_list.append(item["id"])
+
+        annotation_list = []
+        for canvas_id in canvas_list:
+            canvas_id_sanitized = os.path.join(canvas_id, "annotationPage")
+            canvas_id_sanitized = urllib.parse.quote(canvas_id_sanitized, safe='')
+            url = f"{self._arvest_instance._arvest_prefix}/annotation-page/{canvas_id_sanitized}/{self.id}"  
+            response = requests.get(url, headers = self._arvest_instance._auth_header)
+            if response.status_code == 200:
+                if response.json() != []:
+                    for item in response.json()[0]['content']['items']:
+                        annotation_list.append(Annotation(response_body = item))
+            
+        return annotation_list
