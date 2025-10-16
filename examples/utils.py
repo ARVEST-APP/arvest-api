@@ -1,5 +1,13 @@
 import os
 import json
+import csv
+
+def write_csv(path, content):
+    with open(path, mode='w') as f:
+        writer = csv.writer(f)
+
+        for row in content:
+            writer.writerow(row)
 
 def read_txt(path : str) -> str:
     if os.path.isfile(path):
