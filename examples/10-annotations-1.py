@@ -1,10 +1,10 @@
 import arvestapi
 from utils import read_login
 
-PROJECT_NAME = "meta projet"
+PROJECT_NAME = "M3 2"
 
 # Login
-EMAIL, PASSWORD = read_login("examples/login/jh-perso.txt")
+EMAIL, PASSWORD = read_login("examples/login/jh-fac.txt")
 ar = arvestapi.Arvest(EMAIL, PASSWORD)
 
 # Get project:

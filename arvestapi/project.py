@@ -97,8 +97,22 @@ class Project:
         canvas_list = []
         for manifest_id in manifest_list:
             man = self.user_workspace.manifests[manifest_id]["json"]
-            for item in man["items"]:
-                canvas_list.append(item["id"])
+            api_ver = 3 
+            if "@context" in man:
+                if man["@context"] != None:
+                    if "2" in man["@context"]:
+                        api_ver = 2
+            elif "context" in man:
+                if man["context"] != None:
+                    if "2" in man["context"]:
+                        api_ver = 2
+            
+            if api_ver == 3:
+                for item in man["items"]:
+                    canvas_list.append(item["id"])
+            else:
+                for item in man["sequences"][0]["canvases"]:
+                    canvas_list.append(item["@id"])
 
         annotation_list = []
         for canvas_id in canvas_list:

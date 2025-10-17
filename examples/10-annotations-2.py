@@ -7,11 +7,11 @@ from utils import read_login, write_csv
 import os
 import re
 
-PROJECT_NAME = "meta projet"
+PROJECT_NAME = "Elevage 2"
 OUTPUT_DEST = os.path.join(os.getcwd(), f"{PROJECT_NAME}_annotation-list.csv")
 
 # Login
-EMAIL, PASSWORD = read_login("examples/login/jh-perso.txt")
+EMAIL, PASSWORD = read_login("examples/login/jh-fac.txt")
 ar = arvestapi.Arvest(EMAIL, PASSWORD)
 
 annos = [['type', 'label', 'creator', 'date', 'dims', 'target']]

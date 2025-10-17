@@ -12,3 +12,4 @@ examples/fun
 .DS_Store
 filebrowser-reupload
 fsa-reupload
+examples/weird/__pycache__
