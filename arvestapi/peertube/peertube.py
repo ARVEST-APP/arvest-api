@@ -100,12 +100,16 @@ class Peertube:
                 channel_id = self.channels[0]["id"]
             else:
                 raise ValueError("No 'channel_id' provided and no channels cached in self.channels")
+        
+        tags = kwargs.get("tags", [])
+        if len(kwargs.get("tags")) == 1:
+            tags.append("__")
 
         data = {
             "name": kwargs.get("name", "Untitled upload"),
             "privacy": kwargs.get("privacy", 1),
             "channelId": channel_id,
-            "tags" : kwargs.get("tags", [])
+            "tags" : tags
         }
 
         desc = kwargs.get("description")

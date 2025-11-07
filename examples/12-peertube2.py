@@ -12,7 +12,7 @@ for item in vids:
     print(item.name)
     print(item.tags)
 
-created = pt.add_video(VIDEO_FILE, name = "Test upload")
+created = pt.add_video(VIDEO_FILE, name = "Test upload", tags = ["hello world"])
 print(created.url)
 
 print()
