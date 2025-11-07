@@ -94,3 +94,6 @@ class PeertubeVideo:
         self.tags = res.json()["tags"]
         
         return res.json()
+    
+    def get_share_link(self):
+        return f"{self._peertube_instance._instance_url}/w/{self.short_uuid}"

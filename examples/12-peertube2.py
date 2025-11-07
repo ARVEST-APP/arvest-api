@@ -10,9 +10,9 @@ vids = pt.get_videos()
 
 for item in vids:
     print(item.name)
-    print(item.tags)
+    print(item.embed_path)
 
-created = pt.add_video(VIDEO_FILE, name = "Test upload", tags = ["hello world"])
-print(created.url)
+# created = pt.add_video(VIDEO_FILE, name = "Test upload", tags = ["hello world"])
+# print(created.url)
 
 print()
