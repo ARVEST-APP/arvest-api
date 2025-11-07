@@ -134,3 +134,11 @@ class Peertube:
         res = requests.get(url, headers = self._auth_header)
 
         return PeertubeVideo(response_body = res.json(), _peertube_instance = self)
+    
+    def get_video_from_url(self, url) -> PeertubeVideo:
+        vid_list = self.get_videos()
+        for vid in vid_list:
+            if vid.url == url:
+                return vid
+
+        return None
