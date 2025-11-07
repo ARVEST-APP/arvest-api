@@ -64,7 +64,7 @@ class Peertube:
         
         video_list = []
         for item in videos:
-            video_list.append(PeertubeVideo(response_body = item))
+            video_list.append(PeertubeVideo(response_body = item, _peertube_instance = self))
 
         return video_list
     
@@ -105,6 +105,7 @@ class Peertube:
             "name": kwargs.get("name", "Untitled upload"),
             "privacy": kwargs.get("privacy", 1),
             "channelId": channel_id,
+            "tags" : kwargs.get("tags", [])
         }
 
         desc = kwargs.get("description")
@@ -128,4 +129,4 @@ class Peertube:
         url = f"{self._instance_url}/api/v1/videos/{id}"
         res = requests.get(url, headers = self._auth_header)
 
-        return PeertubeVideo(response_body = res.json())
+        return PeertubeVideo(response_body = res.json(), _peertube_instance = self)

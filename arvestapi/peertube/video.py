@@ -1,3 +1,5 @@
+import requests
+
 class PeertubeVideo:
     def __init__(self, **kwargs) -> None:
         self.id = kwargs.get("id", None)
@@ -33,6 +35,9 @@ class PeertubeVideo:
         self.wait_transcoding = kwargs.get("wait_transcoding", None)
         self.blacklisted = kwargs.get("blacklisted", None)
         self.blacklisted_reason = kwargs.get("blacklisted_reason", None)
+        self.tags = kwargs.get("tags", None)
+        
+        self._peertube_instance = kwargs.get("_peertube_instance", None)
 
         if "response_body" in kwargs:
             self._parse_response_body(kwargs.get("response_body"))
@@ -71,3 +76,21 @@ class PeertubeVideo:
         self.wait_transcoding = response_body["waitTranscoding"]
         self.blacklisted = response_body["blacklisted"]
         self.blacklisted_reason = response_body["blacklistedReason"]
+
+        self._get_additional_data()
+
+    def remove(self):
+        url = f"{self._peertube_instance._instance_url}/api/v1/videos/{self.id}"
+        res = requests.delete(url, headers = self._peertube_instance._auth_header)
+
+    def get_source_metadata(self):
+        url = f"{self._peertube_instance._instance_url}/api/v1/videos/{self.id}/source"
+        res = requests.get(url, headers = self._peertube_instance._auth_header)
+        return res.json()
+    
+    def _get_additional_data(self):
+        url = f"{self._peertube_instance._instance_url}/api/v1/videos/{self.id}"
+        res = requests.get(url, headers = self._peertube_instance._auth_header)
+        self.tags = res.json()["tags"]
+        
+        return res.json()
