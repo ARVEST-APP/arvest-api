@@ -1,0 +1,14 @@
+[
+  {
+    "term": "field_1",
+    "label": "Field 1",
+    "definition": "The first field",
+    "comment": "This is a fuller description."
+  },
+  {
+    "term": "field_2",
+    "label": "Field 2",
+    "definition": "Another field",
+    "comment": "Yo"
+  }
+]

@@ -326,3 +326,29 @@ class Arvest:
         else:
             print("Unable to get metadata formats.")
             return None
+        
+    def create_metadata_format(self, title, content) -> MetadataFormat:
+
+        url = f"{self._arvest_prefix}/link-metadata-format-group"
+        body = {
+            "title": title,
+            "metadata": content,
+            "creatorId": self.profile.id
+        }
+    
+        response = requests.post(url, json = body, headers = self._auth_header)
+
+        if response.status_code == 201:
+            mfs = self.get_metadata_formats()
+            for format in mfs:
+                if format.title == title:
+                    return format
+            return None
+        else:
+            mfs = self.get_metadata_formats()
+            for format in mfs:
+                if format.title == title:
+                    print("Unable to create metadata format (exists already).")
+                    return format
+            print("Unable to create metadata format?")
+            return None

@@ -128,6 +128,9 @@ class Media:
         url = f"{self._arvest_instance._arvest_prefix}/metadata"
         response = requests.post(url, json = setter_dict, headers = self._arvest_instance._auth_header)
         
+        print(response.content)
+        print(response.status_code)
+
         if response.status_code == 201:
             pass
         else:

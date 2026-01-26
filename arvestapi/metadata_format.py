@@ -1,4 +1,5 @@
 from .utils import debug_print_response_body
+import requests
 
 class MetadataFormat:
     def __init__(self, **kwargs) -> None:
@@ -10,6 +11,7 @@ class MetadataFormat:
         self.title = kwargs.get("title", None)
         self.creator_id = kwargs.get("creator_id", None)
         self.metadata = kwargs.get("metadata", None)
+        self._arvest_instance = kwargs.get("arvest_instance", None)
 
         if "response_body" in kwargs:
             self._parse_response_body(kwargs.get("response_body"))
@@ -47,3 +49,14 @@ class MetadataFormat:
         self.title = response_body["title"]
         self.creator_id = response_body["creatorId"]
         self.metadata = response_body["metadata"]
+
+    # There is no endpoint for this:
+    # def remove(self):
+    #     url = f"{self._arvest_instance._arvest_prefix}/link-metadata-format-group/{self.id}"  
+    #     response = requests.delete(url, headers = self._arvest_instance._auth_header)
+
+    #     if response.status_code == 200:
+    #         pass
+    #     else:
+    #         print("Unable to delete metadata format.")
+    #         return None

@@ -1,0 +1,19 @@
+[
+  {
+    "term": "title",
+    "label": "Title",
+    "definition": "A name given to the resource."
+  },
+  {
+    "term": "description",
+    "label": "Description",
+    "definition": "An account of the resource.",
+    "comment": "Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource."
+  },
+  {
+    "term": "creator",
+    "label": "Creator",
+    "definition": "An entity primarily responsible for making the resource.",
+    "comment": "Examples of a Creator include a person, an organization, or a service."
+  }
+]
